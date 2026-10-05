@@ -7,3 +7,60 @@ html, body, #map {
     height: 100%;
     width: 100%;
 }
+/*
+color palette 7-class YlGn from colorbrewer2.org.
+#ffffcc - lightest
+#d9f0a3 - second lightest green
+#addd8e
+#78c679
+#41ab5d - emerald
+#238443 - kelly
+#005a32 - darkest green
+*/
+body {
+ background-color: #d9f0a3;
+ color: #005a32;
+ text-align: center;
+ margin: 0;}
+h1 {
+ color: #005a32;
+ padding: 5px;
+ margin: 0;}
+ #body-container {
+background-color: #78c679;
+max-width: 1000px;
+margin: auto;
+min-height: 100vh;
+border: 2px solid #238443;
+border-radius: 25px;
+overflow: hidden;
+}
+#header {
+background-color: #addd8e;
+}
+#profile-picture {
+float: left;
+}
+#welcome-text {
+padding-top: 25px;
+font-size: 25px;
+}
+#research-interests {
+text-align: left;
+font-size: 25px;
+position: relative;
+left: 50px;
+}
+#webmap-reviews {
+  text-align: left;
+  font-size: 25px;
+  position: relative;
+}
+#copyright {
+bottom: 20px;
+margin: 0;
+padding:0;
+text-align: center;
+position: relative;
+left:50%;
+transform: translateX(-50%) translateY(-50%);
