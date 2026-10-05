@@ -12,4 +12,4 @@ L.tileLayer
     }
 )
 .addTo(map);
-var point = turf.point([29.888539, 97.941764]);
+var point = turf.point([29.888539, -97.941764]);
