@@ -1,9 +1,10 @@
-// Create the map (centered on San Marcos, TX)
-const map = L.map('map').setView([29.8833, -97.9414], 13);
+var map = L.map('map').setView([29.8884, -97.9384], 14);
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors'
+var mapLink = '<a href="https://www.openstreetmap.org">OpenStreetMap</a>';
+L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; ' + mapLink + ' Contributors',
+    maxZoom: 18,
 }).addTo(map);
 
 
