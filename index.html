@@ -5,10 +5,8 @@
     <title>Full Screen Leaflet Map</title>
     <meta charset="utf-8" />
 
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+
 <link rel="stylesheet" href="style.css">
 
 </head>
@@ -17,9 +15,7 @@
 
     <div id="map"></div>
 
-    <script
-        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js">
-    </script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script
       src="map.js">
@@ -31,9 +27,14 @@
 <html>
 <head>
   <script>
-    Hello world, Chance edited this page.
-    Hello world, Kat edited this page.
-    Hello world, Kenneth edited this page.
+  var map = L.map('map').setView([29.8884, -97.9384], 14);
+    mapLink =
+        '<a href="http://openstreetmap.org">OpenStreetMap</a>';
+    L.tileLayer(
+        'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; ' + mapLink + ' Contributors',
+        maxZoom: 18,
+        }).addTo(map);
   </script>
 </head>
 >>>>>>> d30718f374904b092e308ef077324ade8d3ed4c4
