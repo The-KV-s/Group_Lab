@@ -13,7 +13,7 @@ L.tileLayer
 )
 .addTo(map);
 
-var point = turf.point([29.888539, -97.941764]);
+var point = turf.point([-97.941764, 29.888539]);
 var polygon = turf.polygon([
   [
     [-98.00, 29.82],
