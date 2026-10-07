@@ -26,6 +26,9 @@ var polygon = turf.polygon([
 
 var area = turf.area(polygon);
 console.log(area);
+L.geoJson(point).addTo(map);
+var polygonLayer = L.geoJSON(polygon).addTo(map);
+map.fitBounds(polygonLayer.getBounds());
 
 
 // Chance's Turf.js distance function
