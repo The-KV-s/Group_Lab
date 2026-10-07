@@ -1,66 +1,58 @@
-body {
-    padding: 0;
-    margin: 0;
-}
+<!DOCTYPE html>
+<html>
 
-html, body, #map {
-    height: 100%;
-    width: 100%;
-}
-/*
-color palette 7-class YlGn from colorbrewer2.org.
-#ffffcc - lightest
-#d9f0a3 - second lightest green
-#addd8e
-#78c679
-#41ab5d - emerald
-#238443 - kelly
-#005a32 - darkest green
-*/
-body {
- background-color: #d9f0a3;
- color: #005a32;
- text-align: center;
- margin: 0;}
-h1 {
- color: #005a32;
- padding: 5px;
- margin: 0;}
- #body-container {
-background-color: #78c679;
-max-width: 1000px;
-margin: auto;
-min-height: 100vh;
-border: 2px solid #238443;
-border-radius: 25px;
-overflow: hidden;
-}
-#header {
-background-color: #addd8e;
-}
-#profile-picture {
-float: left;
-}
-#welcome-text {
-padding-top: 25px;
-font-size: 25px;
-}
-#research-interests {
-text-align: left;
-font-size: 25px;
-position: relative;
-left: 50px;
-}
-#webmap-reviews {
-  text-align: left;
-  font-size: 25px;
-  position: relative;
-}
-#copyright {
-bottom: 20px;
-margin: 0;
-padding:0;
-text-align: center;
-position: relative;
-left:50%;
-transform: translateX(-50%) translateY(-50%);
+<head>
+
+    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+
+    <title>Full Screen Leaflet Map</title>
+
+    <meta charset="utf-8" />
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<!-- This is a test -->
+
+<body>
+
+    <p>
+        This is a Full Scrren Leafmap, a group project for the webmaping class Fall 2026
+    </p>
+
+    <!-- About Us Dropdown -->
+    <div class="about-us">
+        <div class="about-button">About Us</div>
+
+        <div class="about-content">
+            <a href="https://jfd-57.github.io/jfd57.github.io/" target="_blank">Chance</a>
+            <a href="https://kcj68.github.io/" target="_blank">Kat</a>
+            <a href="https://jzj33-bit.github.io/jzj33.github.io/" target="_blank">Kenneth</a>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script
+        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js">
+    </script>
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js">
+    </script>
+
+    <script src="map.js"></script>
+
+    <script type="text/javascript">
+        var point = turf.point([29.888539, -97.941764]);
+    </script>
+
+</body>
+
+</html>
