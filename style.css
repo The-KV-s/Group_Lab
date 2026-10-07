@@ -1,58 +1,118 @@
-<!DOCTYPE html>
-<html>
+body {
+    padding: 0;
+    margin: 0;
+}
 
-<head>
+html, body, #map {
+    height: 100%;
+    width: 100%;
+}
 
-    <script src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js"></script>
+/*
+color palette 7-class YlGn from colorbrewer2.org.
+#ffffcc - lightest
+#d9f0a3 - second lightest green
+#addd8e
+#78c679
+#41ab5d - emerald
+#238443 - kelly
+#005a32 - darkest green
+*/
 
-    <title>Full Screen Leaflet Map</title>
+body {
+    background-color: #d9f0a3;
+    color: #005a32;
+    text-align: center;
+    margin: 0;
+}
 
-    <meta charset="utf-8" />
+h1 {
+    color: #005a32;
+    padding: 5px;
+    margin: 0;
+}
 
-    <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
+#body-container {
+    background-color: #78c679;
+    max-width: 1000px;
+    margin: auto;
+    min-height: 100vh;
+    border: 2px solid #238443;
+    border-radius: 25px;
+    overflow: hidden;
+}
 
-    <link rel="stylesheet" href="style.css">
+#header {
+    background-color: #addd8e;
+}
 
-</head>
+#profile-picture {
+    float: left;
+}
 
-<!-- This is a test -->
+#welcome-text {
+    padding-top: 25px;
+    font-size: 25px;
+}
 
-<body>
+#research-interests {
+    text-align: left;
+    font-size: 25px;
+    position: relative;
+    left: 50px;
+}
 
-    <p>
-        This is a Full Scrren Leafmap, a group project for the webmaping class Fall 2026
-    </p>
+#webmap-reviews {
+    text-align: left;
+    font-size: 25px;
+    position: relative;
+}
 
-    <!-- About Us Dropdown -->
-    <div class="about-us">
-        <div class="about-button">About Us</div>
+#copyright {
+    bottom: 20px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
 
-        <div class="about-content">
-            <a href="https://jfd-57.github.io/jfd57.github.io/" target="_blank">Chance</a>
-            <a href="https://kcj68.github.io/" target="_blank">Kat</a>
-            <a href="https://jzj33-bit.github.io/jzj33.github.io/" target="_blank">Kenneth</a>
-        </div>
-    </div>
+/* About Us dropdown */
 
-    <div id="map"></div>
+.about-us {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1000;
+}
 
-    <script
-        src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js">
-    </script>
+.about-button {
+    background-color: #005a32;
+    color: white;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
 
-    <script
-        src="https://cdn.jsdelivr.net/npm/@turf/turf@7/turf.min.js">
-    </script>
+.about-content {
+    display: none;
+    background-color: white;
+    min-width: 150px;
+    border: 1px solid #005a32;
+}
 
-    <script src="map.js"></script>
+.about-content a {
+    color: #005a32;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
 
-    <script type="text/javascript">
-        var point = turf.point([29.888539, -97.941764]);
-    </script>
+.about-content a:hover {
+    background-color: #d9f0a3;
+}
 
-</body>
-
-</html>
+.about-us:hover .about-content {
+    display: block;
+}
