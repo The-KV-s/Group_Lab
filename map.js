@@ -10,3 +10,40 @@ L.tileLayer(
         maxZoom: 18
     }
 ).addTo(map);
+
+
+// Turf.js distance function
+function calculateDistance() {
+
+    // Two locations in San Marcos
+    var point1 = turf.point([-97.9384, 29.8884]);
+    var point2 = turf.point([-97.9414, 29.8827]);
+
+    // Calculate distance in miles
+    var distance = turf.distance(point1, point2, {
+        units: 'miles'
+    });
+
+    // Add the two points to the map
+    L.marker([29.8884, -97.9384])
+        .addTo(map)
+        .bindPopup('Point 1');
+
+    L.marker([29.8827, -97.9414])
+        .addTo(map)
+        .bindPopup('Point 2');
+
+    // Draw a line between the points
+    L.polyline([
+        [29.8884, -97.9384],
+        [29.8827, -97.9414]
+    ])
+        .addTo(map)
+        .bindPopup(
+            'Distance: ' + distance.toFixed(2) + ' miles'
+        );
+}
+
+
+// Run the Turf.js function
+calculateDistance();
