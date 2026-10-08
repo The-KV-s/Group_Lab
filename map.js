@@ -68,6 +68,11 @@ function calculateDistance() {
 calculateDistance();
 
 // Kat's midpoint function
+$ npm install @turf/midpoint
+
+import { midpoint } from "@turf/midpoint";
+const result = midpoint(...);
+
 const point1 = turf.point([-97.9384, 29.8884]);
 const point2 = turf.point([-97.9414, 29.8827]);
 
