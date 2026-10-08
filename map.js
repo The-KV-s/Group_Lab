@@ -66,3 +66,9 @@ function calculateDistance() {
 
 // Run Chance's Turf.js function
 calculateDistance();
+
+// Kat's midpoint function
+const point1 = turf.point([-97.9384, 29.8884]);
+const point2 = turf.point([-97.9414, 29.8827]);
+
+const midpoint = turf.midpoint(point1, point2);
