@@ -69,7 +69,7 @@ calculateDistance();
 
 // Kat's midpoint function
 
-.addTo(map);
+
 const point1 = turf.point([-97.9384, 29.8884]);
 const point2 = turf.point([-97.9414, 29.8827]);
 
