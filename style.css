@@ -4,6 +4,115 @@ body {
 }
 
 html, body, #map {
-    height: 100%;
+    height: 600px;
     width: 100%;
+}
+
+/*
+color palette 7-class YlGn from colorbrewer2.org.
+#ffffcc - lightest
+#d9f0a3 - second lightest green
+#addd8e
+#78c679
+#41ab5d - emerald
+#238443 - kelly
+#005a32 - darkest green
+*/
+
+body {
+    background-color: #d9f0a3;
+    color: #005a32;
+    text-align: center;
+    margin: 0;
+}
+
+h1 {
+    color: #005a32;
+    padding: 5px;
+    margin: 0;
+}
+
+#body-container {
+    background-color: #78c679;
+    max-width: 1000px;
+    margin: auto;
+    min-height: 100vh;
+    border: 2px solid #238443;
+    border-radius: 25px;
+    overflow: hidden;
+}
+
+#header {
+    background-color: #addd8e;
+}
+
+#profile-picture {
+    float: left;
+}
+
+#welcome-text {
+    padding-top: 25px;
+    font-size: 25px;
+}
+
+#research-interests {
+    text-align: left;
+    font-size: 25px;
+    position: relative;
+    left: 50px;
+}
+
+#webmap-reviews {
+    text-align: left;
+    font-size: 25px;
+    position: relative;
+}
+
+#copyright {
+    bottom: 20px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+/* About Us dropdown */
+
+.about-us {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.about-button {
+    background-color: #005a32;
+    color: white;
+    padding: 10px 16px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.about-content {
+    display: none;
+    background-color: white;
+    min-width: 150px;
+    border: 1px solid #005a32;
+}
+
+.about-content a {
+    color: #005a32;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.about-content a:hover {
+    background-color: #d9f0a3;
+}
+
+.about-us:hover .about-content {
+    display: block;
 }
