@@ -116,3 +116,21 @@ h1 {
 .about-us:hover .about-content {
     display: block;
 }
+
+/* legend */
+.legend {
+  background: white;
+  padding: 8px 12px;
+  line-height: 22px;
+  color: #005a32;
+  text-align: left;
+  border-radius: 6px;
+}
+
+.legend i {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    margin-right: 6px;
+    vertical-align: middle;
+}
