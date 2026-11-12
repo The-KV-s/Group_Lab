@@ -52,4 +52,4 @@ legend.onAdd = function () {
   div.innerHTML += '<i style="background:#555;height:4px"></i>Walking route';
   return div;
 };
-legend.addTo(map);
+legend.addTo(map); 
