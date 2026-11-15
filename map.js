@@ -141,3 +141,16 @@ const venuesData = {
     }
   ]
 };
+// Draw the venues as pins
+const venuesLayer = L.geoJSON(venuesData, {
+  onEachFeature: function (feature, layer) {
+    const p = feature.properties;
+    layer.bindPopup(
+      `<b>${p.name}</b><br>Sport: ${p.sport}<br>${p.address}<br>
+       <a href="${p.url}" target="_blank">Official sports / ticket page ↗</a>`
+    );
+  }
+}).addTo(map);
+
+// Zoom the map to fit all the pins
+map.fitBounds(venuesLayer.getBounds());
