@@ -26,11 +26,9 @@ function colorFor(sportName) {
 var map = L.map('map').setView([29.8884, -97.9384], 14);
 
 // Basemaps
-// CARTO street tiles use OpenStreetMap data but don't block local files
-// (tile.openstreetmap.org returns "403 Access blocked" when opened from your computer)
-var streets = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; CARTO',
-  subdomains: 'abcd',
+// Esri World Street Map: free, no API key, works from local files and GitHub Pages
+var streets = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+  attribution: 'Tiles &copy; Esri',
   maxZoom: 19
 }).addTo(map);
 
@@ -189,3 +187,4 @@ map.on('locationfound', function (e) {
 map.on('locationerror', function (e) {
   console.warn('Could not get location:', e.message);
 });
+ 
