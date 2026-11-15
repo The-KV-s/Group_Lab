@@ -1,62 +1,48 @@
+
+// =========================================================
+// Texas State Sports Map  ·  GEO 4422 group project
+// =========================================================
+
+// ---------- Sports and their colors ----------
+// Each sport's venue, parking, and route share one color.
+// (The legend needs this list. It was missing before, which stopped the script.)
+var sports = [
+  { sport: 'Football',                color: '#b5382a' },
+  { sport: 'Basketball / Volleyball', color: '#1f6fb2' },
+  { sport: 'Baseball',                color: '#7a4fb5' },
+  { sport: 'Softball',                color: '#d4880f' },
+  { sport: 'Soccer',                  color: '#0e8a7d' },
+  { sport: 'Tennis',                  color: '#5f8a1f' },
+  { sport: 'Track & Field',           color: '#c2457a' },
+  { sport: 'Golf',                    color: '#6d4c41' }
+];
+
+function colorFor(sportName) {
+  var match = sports.find(function (s) { return s.sport === sportName; });
+  return match ? match.color : '#555555';
+}
+
+// ---------- Map ----------
 var map = L.map('map').setView([29.8884, -97.9384], 14);
 
-var mapLink = '<a href="https://www.openstreetmap.org">OpenStreetMap</a>';
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  maxZoom: 18
+// Basemaps
+// CARTO street tiles use OpenStreetMap data but don't block local files
+// (tile.openstreetmap.org returns "403 Access blocked" when opened from your computer)
+var streets = L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; CARTO',
+  subdomains: 'abcd',
+  maxZoom: 19
 }).addTo(map);
-
-map.locate({
-  setView: true,
-  maxZoom: 16,
-  enableHighAccuracy: true,
-  timeout: 10000
-});
-
-map.on('locationfound', (e) => {
-  L.marker(e.latlng).addTo(map)
-    .bindPopup('You are here (within ' + Math.round(e.accuracy) + ' m)')
-    .openPopup();
-  L.circle(e.latlng, { radius: e.accuracy }).addTo(map);
-});
-
-map.on('locationerror', (e) => {
-  console.warn('Could not get location:', e.message);
-});
-
-//Basemap switcher from streets to satellite option
-var streets = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  maxZoom: 18
-});
 
 var satellite = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
   attribution: 'Tiles &copy; Esri',
-  maxZoom: 18
+  maxZoom: 19
 });
 
-L.control.layers({ 'Streets': streets, 'Satellite': satellite }).addTo(map);
-
-//Scale bar
-L.control.scale().addTo(map);
-
-//Legend (Hopefully)
-var legend = L.control({ position: 'bottomright' });
-legend.onAdd = function () {
-  var div = L.DomUtil.create('div', 'legend');
-  sports.forEach(function (s) {
-    div.innerHTML += '<i style="background:' + s.color + '"></i>' + s.sport + '<br>';
-  });
-  div.innerHTML += '<i style="background:#fff;border:3px solid #555;border-radius:50%"></i>Parking<br>';
-  div.innerHTML += '<i style="background:#555;border-radius:50%"></i>Venue<br>';
-  div.innerHTML += '<i style="background:#555;height:4px"></i>Walking route';
-  return div;
-};
-legend.addTo(map);
 // Venue locations converted from Bobcat_Athletics_Facilities.kml
 // Same data as venues.geojson, stored as a JS variable so the map also works
 // when index.html is opened directly from your computer.
-const venuesData = {
+var venuesData = {
   "type": "FeatureCollection",
   "features": [
     {
@@ -141,16 +127,65 @@ const venuesData = {
     }
   ]
 };
-// Draw the venues as pins
-const venuesLayer = L.geoJSON(venuesData, {
+
+// ---------- Venues (color-coded pins) ----------
+var venuesLayer = L.geoJSON(venuesData, {
+  pointToLayer: function (feature, latlng) {
+    return L.circleMarker(latlng, {
+      radius: 10,
+      fillColor: colorFor(feature.properties.sport),
+      color: '#ffffff',
+      weight: 2,
+      fillOpacity: 0.95
+    });
+  },
   onEachFeature: function (feature, layer) {
-    const p = feature.properties;
+    var p = feature.properties;
     layer.bindPopup(
-      `<b>${p.name}</b><br>Sport: ${p.sport}<br>${p.address}<br>
-       <a href="${p.url}" target="_blank">Official sports / ticket page ↗</a>`
+      '<b>' + p.name + '</b><br>Sport: ' + p.sport + '<br>' + p.address + '<br>' +
+      '<a href="' + p.url + '" target="_blank" rel="noopener">Official sports / ticket page ↗</a>'
     );
+    layer.bindTooltip(p.name);
   }
 }).addTo(map);
 
 // Zoom the map to fit all the pins
-map.fitBounds(venuesLayer.getBounds());
+map.fitBounds(venuesLayer.getBounds(), { padding: [30, 30] });
+
+// ---------- Layer switcher ----------
+L.control.layers(
+  { 'Streets': streets, 'Satellite': satellite },
+  { 'Venues': venuesLayer }
+).addTo(map);
+
+// ---------- Scale bar ----------
+L.control.scale().addTo(map);
+
+// ---------- Legend ----------
+var legend = L.control({ position: 'bottomright' });
+legend.onAdd = function () {
+  var div = L.DomUtil.create('div', 'legend');
+  sports.forEach(function (s) {
+    div.innerHTML += '<i style="background:' + s.color + '"></i>' + s.sport + '<br>';
+  });
+  div.innerHTML += '<i style="background:#fff;border:3px solid #555;border-radius:50%"></i>Parking<br>';
+  div.innerHTML += '<i style="background:#555;border-radius:50%"></i>Venue<br>';
+  div.innerHTML += '<i style="background:#555;height:4px"></i>Walking route';
+  return div;
+};
+legend.addTo(map);
+
+// ---------- "You are here" (optional) ----------
+// setView is false so the map stays on the venues instead of jumping to your location.
+// Note: browsers only allow location on https:// pages (like GitHub Pages), not local files.
+map.locate({ setView: false, enableHighAccuracy: true, timeout: 10000 });
+
+map.on('locationfound', function (e) {
+  L.marker(e.latlng).addTo(map)
+    .bindPopup('You are here (within ' + Math.round(e.accuracy) + ' m)');
+  L.circle(e.latlng, { radius: e.accuracy }).addTo(map);
+});
+
+map.on('locationerror', function (e) {
+  console.warn('Could not get location:', e.message);
+});
