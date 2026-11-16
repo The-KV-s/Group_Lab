@@ -10,20 +10,22 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
   <p>Group Project</p>
-  <div id="map"> </div>
-  <div id="map">
-    <p>Group Lab</p>
-  </div>
+
+  <div id="map"></div>
 
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-<!-- tuf layer/option -->
+
+  <!-- Turf.js for walking route distances -->
   <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
+  <!-- Original group map -->
   <script src="map.js"></script>
+
+  <!-- Walking route functionality -->
+  <script src="routes.js"></script>
+
 </body>
-
 </html>
-
-<script src="routes.js"></script>
-<script src="routes-init.js"></script>
