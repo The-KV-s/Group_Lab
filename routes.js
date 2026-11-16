@@ -2,9 +2,8 @@
 var parkingLayer = L.layerGroup().addTo(map);
 var walkingLayer = L.layerGroup().addTo(map);
 
-// Approximate parking locations.
-// Coordinates are [latitude, longitude].
-// Confirm exact lot entrances before final submission.
+// Parking locations
+// Coordinates are approximate and should be verified.
 
 var parkingLots = [
   {
@@ -24,7 +23,7 @@ var parkingLots = [
     coordinates: [29.8882, -97.9337]
   },
   {
-    name: "R13 - Strahan Reserve",
+    name: "R13 - Strahan Parking",
     coordinates: [29.8882, -97.9320]
   },
   {
@@ -41,8 +40,7 @@ var parkingLots = [
   }
 ];
 
-// Associate parking areas with sports facilities.
-// These are draft connections, not verified sidewalks.
+// Match parking lots to sports facilities
 
 var routeData = [
   { sport: "Football", parking: 0 },
@@ -66,18 +64,18 @@ var routeData = [
   { sport: "Golf", parking: 7 }
 ];
 
-// Create parking markers
+// Display parking markers using the
+// existing parking symbol from the legend
+
 parkingLots.forEach(function(lot) {
 
   var marker = L.circleMarker(lot.coordinates, {
     radius: 8,
-    color: "#ffffff",
-    weight: 2,
-    fillColor: "#333333",
+    color: "#555555",
+    weight: 3,
+    fillColor: "#ffffff",
     fillOpacity: 1
-  });
-
-  marker.addTo(parkingLayer);
+  }).addTo(parkingLayer);
 
   marker.bindPopup(
     "<b>" + lot.name + "</b><br>" +
@@ -88,7 +86,8 @@ parkingLots.forEach(function(lot) {
 
 });
 
-// Find each facility and draw its connection
+// Draw routes and calculate distances
+
 routeData.forEach(function(route) {
 
   var venue = venuesData.features.find(function(feature) {
@@ -106,26 +105,21 @@ routeData.forEach(function(route) {
     venue.geometry.coordinates[0]
   ];
 
-  // A straight connection between approximate parking
-  // and the existing facility point.
-  // This is NOT a verified pedestrian path.
-
   var coordinates = [
     lot.coordinates,
     venueCoordinates
   ];
 
+  // Draw the route connection
+
   var line = L.polyline(coordinates, {
     color: colorFor(route.sport),
-    weight: 4,
-    opacity: 0.85,
+    weight: 6,
+    opacity: 0.9,
     dashArray: "8, 7"
-  });
+  }).addTo(walkingLayer);
 
-  line.addTo(walkingLayer);
-
-  // Turf.js measures straight-line distance here,
-  // not the actual walking distance.
+  // Calculate direct distance using Turf.js
 
   var start = turf.point([
     lot.coordinates[1],
@@ -143,42 +137,56 @@ routeData.forEach(function(route) {
 
   var distanceMeters = Math.round(distance * 1000);
 
-  // Google Maps can provide actual walking directions.
+  // Create walking directions using
+  // parking and facility coordinates
+
   var directions =
     "https://www.google.com/maps/dir/?api=1" +
-    "&origin=" + encodeURIComponent(lot.name + ", San Marcos, TX") +
+    "&origin=" +
+    encodeURIComponent(
+      lot.coordinates[0] + "," + lot.coordinates[1]
+    ) +
     "&destination=" +
     encodeURIComponent(
-      venue.properties.name + ", " +
-      venue.properties.address
+      venueCoordinates[0] + "," + venueCoordinates[1]
     ) +
     "&travelmode=walking";
 
+  // Route popup
+
   line.bindPopup(
-    "<b>" + route.sport + "</b><br>" +
-    "Parking: " + lot.name + "<br>" +
-    "Facility: " + venue.properties.name + "<br>" +
-    "Straight-line distance: " +
-    distanceMeters + " meters<br>" +
-    "<small>Approximate connection, not a verified walking path.</small><br>" +
+    "<b>" + route.sport + " Directions</b><br><br>" +
+    "<b>Parking:</b> " + lot.name + "<br>" +
+    "<b>Destination:</b> " +
+    venue.properties.name + "<br>" +
+    "<b>Direct distance:</b> " +
+    distanceMeters + " meters<br><br>" +
+    "<small>Displayed connection is approximate.</small><br><br>" +
     '<a href="' + directions +
     '" target="_blank" rel="noopener">' +
-    "Get Walking Directions</a>"
+    "<b>Get Walking Directions</b></a>"
   );
 
+  // Open the popup when a route is clicked
+
+  line.on("click", function(e) {
+    line.openPopup(e.latlng);
+  });
+
 });
 
-// Add the new layers to the existing layer control
-map.eachLayer(function(layer) {
-  // Existing layers remain unchanged.
-});
+// Create controls for showing and hiding layers
 
-// Add a simple control for showing and hiding routes
-var routeControl = L.control({ position: "topleft" });
+var routeControl = L.control({
+  position: "topleft"
+});
 
 routeControl.onAdd = function() {
 
-  var div = L.DomUtil.create("div", "route-control");
+  var div = L.DomUtil.create(
+    "div",
+    "route-control"
+  );
 
   div.style.background = "white";
   div.style.padding = "10px";
@@ -192,7 +200,7 @@ routeControl.onAdd = function() {
     '<label><input type="checkbox" id="showWalking" checked>' +
     " Route Connections</label><br><br>" +
     "<small>Dashed lines are approximate.<br>" +
-    "Use popup links for walking directions.</small>";
+    "Click a route for walking directions.</small>";
 
   L.DomEvent.disableClickPropagation(div);
   L.DomEvent.disableScrollPropagation(div);
@@ -202,7 +210,8 @@ routeControl.onAdd = function() {
 
 routeControl.addTo(map);
 
-// Parking visibility
+// Show or hide parking markers
+
 document.getElementById("showParking").onchange = function() {
 
   if (this.checked) {
@@ -213,7 +222,8 @@ document.getElementById("showParking").onchange = function() {
 
 };
 
-// Route visibility
+// Show or hide route connections
+
 document.getElementById("showWalking").onchange = function() {
 
   if (this.checked) {
