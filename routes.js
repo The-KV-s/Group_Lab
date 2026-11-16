@@ -238,19 +238,22 @@ var routeControl = L.control({
 routeControl.onAdd = function() {
   var div = L.DomUtil.create("div", "route-control");
 
-  div.style.background = "white";
-  div.style.padding = "10px";
-  div.style.border = "2px solid #777";
-  div.style.borderRadius = "5px";
-
   div.innerHTML =
-    "<b>Parking and Routes</b><br><br>" +
-    '<label><input type="checkbox" id="showParking" checked>' +
-    " Parking Lots</label><br>" +
-    '<label><input type="checkbox" id="showWalking" checked>' +
-    " Walking Guidelines</label><br><br>" +
-    "<small>Routes are approximate guides.<br>" +
-    "Click a line for walking directions.</small>";
+    '<div class="route-control-title">Map Options</div>' +
+    '<label class="route-option">' +
+      '<span>Parking Lots</span>' +
+      '<input type="checkbox" id="showParking" checked>' +
+      '<span class="route-switch"></span>' +
+    '</label>' +
+    '<label class="route-option">' +
+      '<span>Walking Routes</span>' +
+      '<input type="checkbox" id="showWalking" checked>' +
+      '<span class="route-switch"></span>' +
+    '</label>' +
+    '<div class="route-control-note">' +
+      'Routes are approximate guides.<br>' +
+      'Click a route for walking directions.' +
+    '</div>';
 
   L.DomEvent.disableClickPropagation(div);
   L.DomEvent.disableScrollPropagation(div);
@@ -275,3 +278,18 @@ document.getElementById("showWalking").onchange = function() {
     map.removeLayer(walkingLayer);
   }
 };
+
+var routeLegend = document.querySelector(".legend");
+
+if (routeLegend) {
+  var legendItems = routeLegend.querySelectorAll("i");
+  var lastItem = legendItems[legendItems.length - 1];
+
+  if (lastItem) {
+    lastItem.style.background = "none";
+    lastItem.style.border = "none";
+    lastItem.style.borderTop = "3px dashed #555555";
+    lastItem.style.height = "0";
+    lastItem.style.marginTop = "8px";
+  }
+}
