@@ -2,94 +2,163 @@
 var parkingLayer = L.layerGroup().addTo(map);
 var walkingLayer = L.layerGroup().addTo(map);
 
-// Parking locations
-// Coordinates are approximate and should be verified.
-
 var parkingLots = [
+  { name: "Stadium West Parking", coordinates: [29.8898, -97.9270] },
+  { name: "Stadium East Parking", coordinates: [29.8914, -97.9228] },
+  { name: "Aquarena Parking", coordinates: [29.8892, -97.9306] },
+  { name: "UEC Parking", coordinates: [29.8882, -97.9337] },
+  { name: "Strahan Parking", coordinates: [29.8882, -97.9320] },
+  { name: "Soccer Complex Parking", coordinates: [29.8894, -97.9525] },
+  { name: "Tennis Complex Parking", coordinates: [29.8910, -97.9365] },
+  { name: "Kissing Tree Parking", coordinates: [29.8380, -97.9960] }
+];
+
+var routeData = [
   {
-    name: "P10W - Stadium West",
-    coordinates: [29.8898, -97.9270]
+    sport: "Football",
+    parking: 0,
+    minutes: "6",
+    path: [
+      [29.8898, -97.9270],
+      [29.8902, -97.9267],
+      [29.8906, -97.9264],
+      [29.8909, -97.9259]
+    ]
   },
   {
-    name: "P10E - Stadium East",
-    coordinates: [29.8914, -97.9228]
+    sport: "Football",
+    parking: 1,
+    minutes: "2",
+    path: [
+      [29.8914, -97.9228],
+      [29.8912, -97.9235],
+      [29.8911, -97.9243]
+    ]
   },
   {
-    name: "P9 - Aquarena Lot",
-    coordinates: [29.8892, -97.9306]
+    sport: "Basketball / Volleyball",
+    parking: 3,
+    minutes: "2",
+    path: [
+      [29.8882, -97.9337],
+      [29.8884, -97.9333],
+      [29.8886, -97.9330]
+    ]
   },
   {
-    name: "P8 - UEC Parking",
-    coordinates: [29.8882, -97.9337]
+    sport: "Basketball / Volleyball",
+    parking: 4,
+    minutes: "5",
+    path: [
+      [29.8882, -97.9320],
+      [29.8884, -97.9318],
+      [29.8887, -97.9320],
+      [29.8888, -97.9324]
+    ]
   },
   {
-    name: "R13 - Strahan Parking",
-    coordinates: [29.8882, -97.9320]
+    sport: "Baseball",
+    parking: 2,
+    minutes: "4",
+    path: [
+      [29.8892, -97.9306],
+      [29.8889, -97.9302],
+      [29.8885, -97.9296],
+      [29.8881, -97.9289]
+    ]
   },
   {
-    name: "Soccer Complex Parking",
-    coordinates: [29.8894, -97.9525]
+    sport: "Baseball",
+    parking: 0,
+    minutes: "14",
+    path: [
+      [29.8898, -97.9270],
+      [29.8891, -97.9268],
+      [29.8886, -97.9272],
+      [29.8881, -97.9277]
+    ]
   },
   {
-    name: "Tennis Complex Parking",
-    coordinates: [29.8910, -97.9365]
+    sport: "Softball",
+    parking: 2,
+    minutes: "3",
+    path: [
+      [29.8892, -97.9306],
+      [29.8889, -97.9301],
+      [29.8886, -97.9298]
+    ]
   },
   {
-    name: "Kissing Tree Parking",
-    coordinates: [29.8380, -97.9960]
+    sport: "Softball",
+    parking: 0,
+    minutes: "13",
+    path: [
+      [29.8898, -97.9270],
+      [29.8891, -97.9270],
+      [29.8886, -97.9277],
+      [29.8884, -97.9285]
+    ]
+  },
+  {
+    sport: "Soccer",
+    parking: 5,
+    minutes: "3",
+    path: [
+      [29.8894, -97.9525],
+      [29.8891, -97.9526],
+      [29.8889, -97.9522],
+      [29.8889, -97.9519]
+    ]
+  },
+  {
+    sport: "Tennis",
+    parking: 6,
+    minutes: "5",
+    path: [
+      [29.8910, -97.9365],
+      [29.8911, -97.9362],
+      [29.8912, -97.9359]
+    ]
+  },
+  {
+    sport: "Track & Field",
+    parking: 1,
+    minutes: "6",
+    path: [
+      [29.8914, -97.9228],
+      [29.8912, -97.9225],
+      [29.8910, -97.9223]
+    ]
+  },
+  {
+    sport: "Golf",
+    parking: 7,
+    minutes: "1",
+    path: [
+      [29.8380, -97.9960],
+      [29.8381, -97.9958],
+      [29.8382, -97.9956]
+    ]
   }
 ];
 
-// Match parking lots to sports facilities
-
-var routeData = [
-  { sport: "Football", parking: 0 },
-  { sport: "Football", parking: 1 },
-
-  { sport: "Basketball / Volleyball", parking: 3 },
-  { sport: "Basketball / Volleyball", parking: 4 },
-
-  { sport: "Baseball", parking: 2 },
-  { sport: "Baseball", parking: 0 },
-
-  { sport: "Softball", parking: 2 },
-  { sport: "Softball", parking: 0 },
-
-  { sport: "Soccer", parking: 5 },
-
-  { sport: "Tennis", parking: 6 },
-
-  { sport: "Track & Field", parking: 1 },
-
-  { sport: "Golf", parking: 7 }
-];
-
-// Display parking markers using the
-// existing parking symbol from the legend
-
 parkingLots.forEach(function(lot) {
-
-  var marker = L.circleMarker(lot.coordinates, {
+  L.circleMarker(lot.coordinates, {
     radius: 8,
     color: "#555555",
     weight: 3,
     fillColor: "#ffffff",
     fillOpacity: 1
-  }).addTo(parkingLayer);
-
-  marker.bindPopup(
+  })
+  .addTo(parkingLayer)
+  .bindPopup(
     "<b>" + lot.name + "</b><br>" +
     "Approximate parking location"
-  );
-
-  marker.bindTooltip(lot.name);
-
+  )
+  .bindTooltip(lot.name);
 });
 
-// Draw routes and calculate distances
-
 routeData.forEach(function(route) {
-
   var venue = venuesData.features.find(function(feature) {
     return feature.properties.sport === route.sport;
   });
@@ -100,45 +169,32 @@ routeData.forEach(function(route) {
 
   var lot = parkingLots[route.parking];
 
-  var venueCoordinates = [
+  var destination = [
     venue.geometry.coordinates[1],
     venue.geometry.coordinates[0]
   ];
 
-  var coordinates = [
-    lot.coordinates,
-    venueCoordinates
-  ];
+  var path = route.path.slice();
+  path.push(destination);
 
-  // Draw the route connection
-
-  var line = L.polyline(coordinates, {
+  var line = L.polyline(path, {
     color: colorFor(route.sport),
     weight: 6,
     opacity: 0.9,
-    dashArray: "8, 7"
+    dashArray: "10, 7"
   }).addTo(walkingLayer);
 
-  // Calculate direct distance using Turf.js
+  var turfCoordinates = path.map(function(point) {
+    return [point[1], point[0]];
+  });
 
-  var start = turf.point([
-    lot.coordinates[1],
-    lot.coordinates[0]
-  ]);
+  var turfLine = turf.lineString(turfCoordinates);
 
-  var end = turf.point([
-    venueCoordinates[1],
-    venueCoordinates[0]
-  ]);
-
-  var distance = turf.distance(start, end, {
+  var distance = turf.length(turfLine, {
     units: "kilometers"
   });
 
   var distanceMeters = Math.round(distance * 1000);
-
-  // Create walking directions using
-  // parking and facility coordinates
 
   var directions =
     "https://www.google.com/maps/dir/?api=1" +
@@ -148,45 +204,39 @@ routeData.forEach(function(route) {
     ) +
     "&destination=" +
     encodeURIComponent(
-      venueCoordinates[0] + "," + venueCoordinates[1]
+      destination[0] + "," + destination[1]
     ) +
     "&travelmode=walking";
 
-  // Route popup
-
   line.bindPopup(
-    "<b>" + route.sport + " Directions</b><br><br>" +
+    "<b>" + route.sport + " Walking Guide</b><br><br>" +
     "<b>Parking:</b> " + lot.name + "<br>" +
     "<b>Destination:</b> " +
     venue.properties.name + "<br>" +
-    "<b>Direct distance:</b> " +
-    distanceMeters + " meters<br><br>" +
-    "<small>Displayed connection is approximate.</small><br><br>" +
+    "<b>Approximate guideline length:</b> " +
+    distanceMeters + " meters<br>" +
+    "<b>Reference walking time:</b> " +
+    route.minutes + " minutes<br><br>" +
+    "<small>This line is a general walking guide. " +
+    "Follow posted signs and designated crossings. " +
+    "The walking time is based on reference directions, " +
+    "not calculated from this line.</small><br><br>" +
     '<a href="' + directions +
     '" target="_blank" rel="noopener">' +
-    "<b>Get Walking Directions</b></a>"
+    "<b>Get Step-by-Step Walking Directions</b></a>"
   );
-
-  // Open the popup when a route is clicked
 
   line.on("click", function(e) {
     line.openPopup(e.latlng);
   });
-
 });
-
-// Create controls for showing and hiding layers
 
 var routeControl = L.control({
   position: "topleft"
 });
 
 routeControl.onAdd = function() {
-
-  var div = L.DomUtil.create(
-    "div",
-    "route-control"
-  );
+  var div = L.DomUtil.create("div", "route-control");
 
   div.style.background = "white";
   div.style.padding = "10px";
@@ -198,9 +248,9 @@ routeControl.onAdd = function() {
     '<label><input type="checkbox" id="showParking" checked>' +
     " Parking Lots</label><br>" +
     '<label><input type="checkbox" id="showWalking" checked>' +
-    " Route Connections</label><br><br>" +
-    "<small>Dashed lines are approximate.<br>" +
-    "Click a route for walking directions.</small>";
+    " Walking Guidelines</label><br><br>" +
+    "<small>Routes are approximate guides.<br>" +
+    "Click a line for walking directions.</small>";
 
   L.DomEvent.disableClickPropagation(div);
   L.DomEvent.disableScrollPropagation(div);
@@ -210,26 +260,18 @@ routeControl.onAdd = function() {
 
 routeControl.addTo(map);
 
-// Show or hide parking markers
-
 document.getElementById("showParking").onchange = function() {
-
   if (this.checked) {
     map.addLayer(parkingLayer);
   } else {
     map.removeLayer(parkingLayer);
   }
-
 };
 
-// Show or hide route connections
-
 document.getElementById("showWalking").onchange = function() {
-
   if (this.checked) {
     map.addLayer(walkingLayer);
   } else {
     map.removeLayer(walkingLayer);
   }
-
 };
