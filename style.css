@@ -156,32 +156,44 @@ h1 {
 }
 
 .route-control {
-  width: 210px;
-  background: white;
-  border: 1px solid #cccccc;
-  border-radius: 10px;
-  padding: 14px;
-  color: #333333;
+  width: 230px;
+  background: #ffffff;
+  border: 1px solid #d4dfd6;
+  border-radius: 12px;
+  padding: 0;
+  overflow: hidden;
+  color: #243d30;
   font-family: Arial, sans-serif;
   text-align: left;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
 }
 
 .route-control-title {
-  font-size: 15px;
+  background: #005a32;
+  color: #ffffff;
+  font-size: 16px;
   font-weight: bold;
-  padding-bottom: 10px;
-  margin-bottom: 8px;
-  border-bottom: 1px solid #eeeeee;
+  padding: 15px;
+  margin: 0;
+  border: none;
 }
 
 .route-option {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 0;
+  gap: 12px;
+  padding: 14px 15px;
+  margin: 0;
   font-size: 13px;
+  font-weight: 600;
+  color: #243d30;
   cursor: pointer;
+  box-sizing: border-box;
+}
+
+.route-option + .route-option {
+  border-top: 1px solid #e4eae6;
 }
 
 .route-option input {
@@ -193,11 +205,13 @@ h1 {
 
 .route-switch {
   position: relative;
-  width: 36px;
-  height: 20px;
-  background: #cccccc;
+  display: inline-block;
+  flex-shrink: 0;
+  width: 42px;
+  height: 24px;
+  background: #cbd5cf;
   border-radius: 20px;
-  transition: background 0.2s;
+  transition: background 0.2s ease;
 }
 
 .route-switch::after {
@@ -205,31 +219,35 @@ h1 {
   position: absolute;
   top: 3px;
   left: 3px;
-  width: 14px;
-  height: 14px;
-  background: white;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
   border-radius: 50%;
-  transition: transform 0.2s;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
 }
 
 .route-option input:checked + .route-switch {
-  background: #277a55;
+  background: #238443;
 }
 
 .route-option input:checked + .route-switch::after {
-  transform: translateX(16px);
+  transform: translateX(18px);
 }
 
 .route-option input:focus-visible + .route-switch {
-  outline: 2px solid #1f6fb2;
+  outline: 2px solid #005a32;
   outline-offset: 3px;
 }
 
 .route-control-note {
-  margin-top: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #eeeeee;
+  background: #f2f7f3;
+  margin: 0 10px 10px;
+  padding: 12px;
+  border: none;
+  border-radius: 7px;
   font-size: 11px;
+  font-weight: normal;
   line-height: 1.6;
-  color: #777777;
+  color: #52685b;
 }
