@@ -89,7 +89,7 @@ h1 {
 }
 
 .about-button {
-    background-color: #005a32;
+    background-color: #501214;
     color: white;
     padding: 10px 16px;
     cursor: pointer;
@@ -100,18 +100,18 @@ h1 {
     display: none;
     background-color: white;
     min-width: 150px;
-    border: 1px solid #005a32;
+    border: 1px solid #501214;
 }
 
 .about-content a {
-    color: #005a32;
+    color: #501214;
     padding: 10px;
     display: block;
     text-decoration: none;
 }
 
 .about-content a:hover {
-    background-color: #d9f0a3;
+    background-color: #efe6d6;
 }
 
 .about-us:hover .about-content {
@@ -123,7 +123,7 @@ h1 {
   background: white;
   padding: 8px 12px;
   line-height: 22px;
-  color: #005a32;
+  color: #501214;
   text-align: left;
   border-radius: 6px;
 }
@@ -169,7 +169,7 @@ h1 {
 }
 
 .route-control-title {
-  background: #005a32;
+  background: #501214;
   color: #ffffff;
   font-size: 16px;
   font-weight: bold;
@@ -228,7 +228,7 @@ h1 {
 }
 
 .route-option input:checked + .route-switch {
-  background: #238443;
+  background: #8D734A;
 }
 
 .route-option input:checked + .route-switch::after {
@@ -236,7 +236,7 @@ h1 {
 }
 
 .route-option input:focus-visible + .route-switch {
-  outline: 2px solid #005a32;
+  outline: 2px solid #8D734A;
   outline-offset: 3px;
 }
 
@@ -250,4 +250,18 @@ h1 {
   font-weight: normal;
   line-height: 1.6;
   color: #52685b;
+}
+body > p {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    margin: 0;
+    padding: 6px 16px;
+    background-color: #501214;
+    color: #ffffff;
+    border: 2px solid #8D734A;
+    border-radius: 8px;
+    font-weight: bold;
 }
