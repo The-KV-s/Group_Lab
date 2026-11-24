@@ -12,20 +12,38 @@
 </head>
 
 <body>
-  <p>Group Project</p>
+  <!-- Header: project title and basic info -->
+    <header id="site-header">
+      <h1>Texas State Sports Venues</h1>
+      <p>Group Project · GEO 4422</p>
+    </header>
 
-  <div id="map"></div>
+    <!-- Navigation bar -->
+    <nav id="site-nav">
+      <a href="index.html">Map</a>
+      <a href="about.html">About Us</a>
+    </nav>
 
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Main: the map -->
+    <main id="main">
+      <div id="map"></div>
+    </main>
 
-  <!-- Turf.js for walking route distances -->
-  <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+    <!-- Footer: copyright, group name, date -->
+    <footer id="site-footer">
+      &copy; 2026 Chance Cooper, Kat Venezia, and Kenneth Vanegas · GEO 4422 · Texas State University · November 2026
+    </footer>
 
-  <!-- Original group map -->
-  <script src="map.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
-  <!-- Walking route functionality -->
-  <script src="routes.js"></script>
+    <!-- Turf.js for walking route distances -->
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
+
+    <!-- Original group map -->
+    <script src="map.js"></script>
+
+    <!-- Walking route functionality -->
+    <script src="routes.js"></script>
 
 </body>
 </html>
