@@ -336,3 +336,51 @@ body {
     padding: 8px 20px;
     border-top: 3px solid #8D734A;
 }
+
+/* About Us dropdown inside the nav bar */
+#site-nav {
+    position: relative;
+    z-index: 2000;
+}
+
+.nav-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-dropdown-button {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: bold;
+    padding: 10px 16px;
+    cursor: pointer;
+}
+
+.nav-dropdown:hover .nav-dropdown-button {
+    background-color: #501214;
+}
+
+.nav-dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background-color: #ffffff;
+    border: 2px solid #501214;
+    z-index: 2000;
+}
+
+.nav-dropdown:hover .nav-dropdown-content {
+    display: block;
+}
+
+#site-nav .nav-dropdown-content a {
+    display: block;
+    color: #501214;
+    padding: 10px 14px;
+}
+
+#site-nav .nav-dropdown-content a:hover {
+    background-color: #efe6d6;
+}
